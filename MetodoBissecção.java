@@ -19,35 +19,122 @@ public class MetodoBissecção {
         Scanner input = new Scanner(System.in);
         
                                          //variaveis
-        int a;
-        int b;
-        int c;
-        float pontoa=0;
+        int a=0;
+        int b=0;
+        int c=0;
+        int d=0;
+        int e=0;
+        int f=0;
+        int grau=0;
+        float pontoa;
         float pontob;
         float fda;
         float fdb;                                     
         float xk;
         float fdxk;
-        
+        boolean isGrauValido = false;
+        boolean isExisteRaiz = false;
         String pontoaabrev;   //variaveis de teste de abreviação
         String fim;
         
-        System.out.println("Digite o valor de A da equação: ");
-        a = input.nextInt();
-        System.out.println("Digite o valor de B da equação: ");
-        b = input.nextInt();
-        System.out.println("Digite o valor de C da equação: ");
-        c = input.nextInt();
+        while (isGrauValido == false) {
+        System.out.println("Digite o grau da equação ");
+        grau = input.nextInt();
         
-        System.out.println("Equação:  "  +  a + "X^2" + b + "X" + c );
+         switch (grau) {
+
+        case 1: //primeiro grau
+        
+            System.out.println("Digite o valor de A da equação: ");
+            a = input.nextInt();
+            System.out.println("Digite o valor de B da equação: ");
+            b = input.nextInt();
+            isGrauValido = true;
+            System.out.println("Equação:  " + a + "X " + b );
+
+        break;
+
+       case 2: // segundo grau
+            
+            System.out.println("Digite o valor de A da equação: ");
+            a = input.nextInt();
+            System.out.println("Digite o valor de B da equação: ");
+            b = input.nextInt();
+            System.out.println("Digite o valor de C da equação: ");
+            c = input.nextInt();
+            isGrauValido = true;
+            System.out.println("Equação:  "  +  a + "X^2 " + b + "X " + c );
+            
+        break;
+
+        case 3: // terceiro grau
+            
+            System.out.println("Digite o valor de A da equação: ");
+            a = input.nextInt();
+            System.out.println("Digite o valor de B da equação: ");
+            b = input.nextInt();
+            System.out.println("Digite o valor de C da equação: ");
+            c = input.nextInt();
+            System.out.println("Digite o valor de D da equação: ");
+            d = input.nextInt();
+            isGrauValido = true;
+            System.out.println("Equação:  "  +  a + "X^3 " + b + "X^2 " + c + "X " + d );
+
+        break;
+        
+        case 4:
+            
+            System.out.println("Digite o valor de A da equação: ");
+            a = input.nextInt();
+            System.out.println("Digite o valor de B da equação: ");
+            b = input.nextInt();
+            System.out.println("Digite o valor de C da equação: ");
+            c = input.nextInt();
+            System.out.println("Digite o valor de D da equação: ");
+            d = input.nextInt();
+            System.out.println("Digite o valor de E da equação: ");
+            e = input.nextInt();
+            isGrauValido = true;
+            System.out.println("Equação:  "  +  a + "X^4 " + b + "X^3 " + c + "X^2 " + d + "X " + e );
+            
+            
+
+        break;
+        
+        case 5:
+            
+            System.out.println("Digite o valor de A da equação: ");
+            a = input.nextInt();
+            System.out.println("Digite o valor de B da equação: ");
+            b = input.nextInt();
+            System.out.println("Digite o valor de C da equação: ");
+            c = input.nextInt();
+            System.out.println("Digite o valor de D da equação: ");
+            d = input.nextInt();
+            System.out.println("Digite o valor de E da equação: ");
+            e = input.nextInt();
+            System.out.println("Digite o valor de F da equação: ");
+            f = input.nextInt();
+            isGrauValido = true;
+            System.out.println("Equação:  "  +  a + "X^5 " + b + "X^4 " + c + "X^3 " + d + "X^2 " + e + "X " + f);
+            
+        break;
+
+        default:
+            System.out.println("O número escolhido é inválido! Digite um número entre 1 e 5.");
+            
+
+        }
+        
+        }
+        
+        
+        
        
         System.out.println("Digite o valor do ponto aprox A: ");
         pontoa = input.nextFloat();
         
-        pontoaabrev = String.valueOf(pontoa);    //teste abreviação
-        fim = pontoaabrev.substring(0, 5);
-        System.out.println(">>" + fim);
-        
+       
         System.out.println("Digite o valor do ponto aprox B: ");
         pontob = input.nextFloat();
         
@@ -58,16 +145,21 @@ public class MetodoBissecção {
         
                                                      
                                                     //Teorema de Bolzano 
+       
+                                                    
+       while(isExisteRaiz == false){                                             
        if (fda * fdb < 0){
         
            System.out.println("Existe pelo menos 1 raiz neste intervalo.");
            System.out.println("F(a): " + fda + "F(b): " + fdb);
+           isExisteRaiz = true;
         }else{
            
            System.out.println("Não existem raizes neste intervalo");
            System.out.println("F(a): " + fda + "F(b): " + fdb);
+           isExisteRaiz = true;
        }
-       
+       }
        xk = (pontoa + pontob)/2;
        
        fdxk = (float) ((a * Math.pow(xk,2)) + (b * xk) + c ) ;   //formula digitada
@@ -109,7 +201,7 @@ public class MetodoBissecção {
                     
         }
        
-        }while(fdxk > 0.01 | fdxk < -0.01);
+        }while(fdxk > 0.001 | fdxk < -0.001);
                               
     
     }
