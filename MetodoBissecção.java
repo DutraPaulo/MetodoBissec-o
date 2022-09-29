@@ -26,16 +26,15 @@ public class MetodoBissecção {
         int e=0;
         int f=0;
         int grau=0;
-        float pontoa;
-        float pontob;
-        float fda;
-        float fdb;                                     
-        float xk;
-        float fdxk;
+        float pontoa=0;
+        float pontob=0;
+        float fda=0;
+        float fdb=0;                                     
+        float xk=0;
+        float fdxk=0;
         boolean isGrauValido = false;
         boolean isExisteRaiz = false;
-        String pontoaabrev;   //variaveis de teste de abreviação
-        String fim;
+        
         
         while (isGrauValido == false) {
         System.out.println("Digite o grau da equação ");
@@ -127,27 +126,19 @@ public class MetodoBissecção {
         }
         
         }
-        
-        
-        
-       
-        System.out.println("Digite o valor do ponto aprox A: ");
-        pontoa = input.nextFloat();
-        
-       
-        System.out.println("Digite o valor do ponto aprox B: ");
-        pontob = input.nextFloat();
-        
-                                                     //Fórmula digitada
-       fda = (float) ((a * Math.pow(pontoa,2)) + (b * pontoa) + c ) ;
-       fdb = (float) ((a * Math.pow(pontob,2)) + (b * pontob) + c ) ;
-       
-        
-                                                     
+     
+                                           
                                                     //Teorema de Bolzano 
        
                                                     
-       while(isExisteRaiz == false){                                             
+       while(isExisteRaiz == false){
+           
+        System.out.println("Digite o valor do ponto aprox A: ");
+        pontoa = input.nextFloat();
+       
+        System.out.println("Digite o valor do ponto aprox B: ");
+        pontob = input.nextFloat();
+           
        if (fda * fdb < 0){
         
            System.out.println("Existe pelo menos 1 raiz neste intervalo.");
@@ -157,14 +148,64 @@ public class MetodoBissecção {
            
            System.out.println("Não existem raizes neste intervalo");
            System.out.println("F(a): " + fda + "F(b): " + fdb);
-           isExisteRaiz = true;
+           
        }
        }
-       xk = (pontoa + pontob)/2;
        
-       fdxk = (float) ((a * Math.pow(xk,2)) + (b * xk) + c ) ;   //formula digitada
+       switch (grau) {  //formula dinamica
+
+        case 1: //primeiro grau
+        
+            fda = (float) ((a * pontoa) + b ) ;
+            fdb = (float) ((a * pontob) + b ) ;
+            xk = (pontoa + pontob)/2;
+            fdxk = (float) ((a * xk) + b ) ;
+        break;
+
+       case 2: // segundo grau
+            
+            fda = (float) ((a * Math.pow(pontoa,grau)) + (b * pontoa) + c ) ;
+            fdb = (float) ((a * Math.pow(pontob,grau)) + (b * pontob) + c ) ;
+            xk = (pontoa + pontob)/2;
+            fdxk = (float) ((a * Math.pow(xk,grau)) + (b * xk) + c ) ;
+            
+        break;
+
+        case 3: // terceiro grau
+            
+            fda = (float) ((a * Math.pow(pontoa,grau)) + (b * Math.pow(pontoa,grau-1)) + c * pontoa + d ) ;
+            fdb = (float) ((a * Math.pow(pontob,grau)) + (b * Math.pow(pontob,grau-1)) + c * pontob + d ) ;
+            xk = (pontoa + pontob)/2;
+            fdxk = (float) ((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + c * xk + d ) ;
+          
+
+        break;
+        
+        case 4: //quarto grau
+            
+            fda = (float) ((a * Math.pow(pontoa,grau)) + (b * Math.pow(pontoa,grau-1)) + (c * Math.pow(pontoa,grau-2)) + pontoa * d + e ) ;
+            fdb = (float) ((a * Math.pow(pontob,grau)) + (b * Math.pow(pontob,grau-1)) + (c * Math.pow(pontob,grau-2)) + pontob * d + e ) ;
+            xk = (pontoa + pontob)/2;
+            fdxk = (float) ((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + (c * Math.pow(xk,grau-2)) + xk * d + e ) ;
+            
+
+        break;
+        
+        case 5: // quinto grau
+            
+            fda = (float) ((a * Math.pow(pontoa,grau)) + (b * Math.pow(pontoa,grau-1)) + (c * Math.pow(pontoa,grau-2)) + (d * Math.pow(pontoa,grau-3)) + pontoa * e + f);
+            fdb = (float) ((a * Math.pow(pontob,grau)) + (b * Math.pow(pontob,grau-1)) + (c * Math.pow(pontob,grau-2)) + (d * Math.pow(pontob,grau-3)) + pontob * e + f);
+            xk = (pontoa + pontob)/2;
+            fdxk = (float) ((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + (c * Math.pow(xk,grau-2)) + (d * Math.pow(xk,grau-3)) + xk * e + f);
+            
+        break;
+
+        default:
+ 
+        }
        
-        System.out.println("Resultado para equação X^2-X-1: ");       
+       
+        System.out.println("Resultado para equação: ");       
         System.out.println("A = " + pontoa + " | " + "B = " + pontob + " | " + "F(a) = " + fda + " | " + "F(b) = " + fdb + " | " +
                            "Xk = " + xk + " | " + "F(xk) = " + fdxk);
        
