@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package metodobissecção;
 
 import java.util.Scanner;
@@ -26,12 +21,13 @@ public class MetodoBissecção {
         int e=0;
         int f=0;
         int grau=0;
-        float pontoa=0;
-        float pontob=0;
-        float fda=0;
-        float fdb=0;                                     
-        float xk=0;
-        float fdxk=0;
+        int metodoEscolhido = 0;
+        double pontoa=0;
+        double pontob=0;
+        double fda=0;
+        double fdb=0;                                     
+        double xk=0;
+        double fdxk=0;
         boolean isGrauValido = false;
         boolean isExisteRaiz = false;
         
@@ -96,8 +92,6 @@ public class MetodoBissecção {
             isGrauValido = true;
             System.out.println("Equação:  "  +  a + "X^4 " + b + "X^3 " + c + "X^2 " + d + "X " + e );
             
-            
-
         break;
         
         case 5:
@@ -126,9 +120,38 @@ public class MetodoBissecção {
         }
         
         }
-     
-                                           
-                                                    //Teorema de Bolzano 
+        
+        while(metodoEscolhido != 1 && metodoEscolhido != 2 &&  metodoEscolhido != 3){
+        System.out.println("Escolha o método desejado:  1 - Método da bissecção");
+        System.out.println("Escolha o método desejado:  2 - Método da falsa posição");
+        System.out.println("Escolha o método desejado:  3 - Método X");
+        metodoEscolhido = input.nextInt();
+        
+        if(metodoEscolhido != 1 && metodoEscolhido != 2 && metodoEscolhido != 3){
+            System.out.println("Número inválido. Escolha um dos métodos disponíveis");
+        }else{
+        }
+        }
+        
+        
+        switch (metodoEscolhido) {  //bisecção
+
+        case 1: //primeiro grau
+            
+        break;
+
+        case 2: // falsa posição
+             
+        break;
+
+        case 3: // método ainda a escolher
+            
+        break;
+
+        default:
+ 
+        }
+        
        
                                                     
        while(isExisteRaiz == false){
@@ -138,36 +161,25 @@ public class MetodoBissecção {
        
         System.out.println("Digite o valor do ponto aprox B: ");
         pontob = input.nextFloat();
-           
-       if (fda * fdb < 0){
         
-           System.out.println("Existe pelo menos 1 raiz neste intervalo.");
-           System.out.println("F(a): " + fda + "F(b): " + fdb);
-           isExisteRaiz = true;
-        }else{
-           
-           System.out.println("Não existem raizes neste intervalo");
-           System.out.println("F(a): " + fda + "F(b): " + fdb);
-           
-       }
-       }
-       
-       switch (grau) {  //formula dinamica
+        switch (grau) {  //formula dinamica
 
         case 1: //primeiro grau
         
-            fda = (float) ((a * pontoa) + b ) ;
-            fdb = (float) ((a * pontob) + b ) ;
-            xk = (pontoa + pontob)/2;
-            fdxk = (float) ((a * xk) + b ) ;
+            fda = Math.round(((a * pontoa) + b ) * 10000.0) / 10000.0;
+            fdb = Math.round(((a * pontob) + b ) * 10000.0) / 10000.0;
+            xk = Math.round(((pontoa + pontob)/2) * 10000.0) / 10000.0;
+            //xk = Math.round(((pontoa * fdb - pontob * fda)/fdb - fda) * 10000.0) / 10000.0;
+            fdxk = Math.round(((a * xk) + b ) * 10000.0) / 10000.0;
         break;
 
-       case 2: // segundo grau
+        case 2: // segundo grau
             
-            fda = (float) ((a * Math.pow(pontoa,grau)) + (b * pontoa) + c ) ;
-            fdb = (float) ((a * Math.pow(pontob,grau)) + (b * pontob) + c ) ;
-            xk = (pontoa + pontob)/2;
-            fdxk = (float) ((a * Math.pow(xk,grau)) + (b * xk) + c ) ;
+            fda = Math.round(((a * Math.pow(pontoa,grau)) + (b * pontoa) + c ) * 10000.0) / 10000.0;
+            fdb = Math.round(((a * Math.pow(pontob,grau)) + (b * pontob) + c ) * 10000.0) / 10000.0;
+            xk = Math.round(((pontoa + pontob)/2) * 10000.0) / 10000.0;
+            //xk = Math.round(((pontoa * fdb - pontob * fda)/fdb - fda) * 10000.0) / 10000.0;
+            fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * xk) + c ) * 10000.0) / 10000.0;
             
         break;
 
@@ -177,7 +189,6 @@ public class MetodoBissecção {
             fdb = (float) ((a * Math.pow(pontob,grau)) + (b * Math.pow(pontob,grau-1)) + c * pontob + d ) ;
             xk = (pontoa + pontob)/2;
             fdxk = (float) ((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + c * xk + d ) ;
-          
 
         break;
         
@@ -187,7 +198,6 @@ public class MetodoBissecção {
             fdb = (float) ((a * Math.pow(pontob,grau)) + (b * Math.pow(pontob,grau-1)) + (c * Math.pow(pontob,grau-2)) + pontob * d + e ) ;
             xk = (pontoa + pontob)/2;
             fdxk = (float) ((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + (c * Math.pow(xk,grau-2)) + xk * d + e ) ;
-            
 
         break;
         
@@ -203,47 +213,126 @@ public class MetodoBissecção {
         default:
  
         }
+           
+       if (fda * fdb < 0){//Bolzano
+        
+           System.out.println("Existe pelo menos 1 raiz neste intervalo.");
+           System.out.println("F(a): " + fda + "F(b): " + fdb);
+           isExisteRaiz = true;
+        }else{
+           
+           System.out.println("Não existem raizes neste intervalo. Por favor, selecione dois novos pontos.");
+           System.out.println("F(a): " + fda + "F(b): " + fdb);
+           
+       }
+       }
        
-       
+        
         System.out.println("Resultado para equação: ");       
         System.out.println("A = " + pontoa + " | " + "B = " + pontob + " | " + "F(a) = " + fda + " | " + "F(b) = " + fdb + " | " +
                            "Xk = " + xk + " | " + "F(xk) = " + fdxk);
-       
         
-        do{
+        for(double i = fdxk; i > 0.01 | i < -0.01; i = fdxk){
+        //while(fdxk > Math.pow(10, -3) | fdxk < (Math.pow(-10, -3)))
       
         if(fda * fdxk < 0){
-           
+            
             pontoa = pontoa;
             pontob = xk;
-            xk = (pontoa + pontob)/2;
+            xk = Math.round((pontoa + pontob)/2 * 10000.0) / 10000.0;
+            //xk = Math.round(((pontoa * fdb - pontob * fda)/fdb - fda) * 10000.0) / 10000.0;
             fdb = fdxk;
-            fdxk = (float) ((a * Math.pow(xk,2)) + (b * xk) + c ) ;
             
-            
-                  
-        System.out.println("A = " + pontoa + " | " + "B = " + pontob + " | " + "F(a) = " + fda + " | " + "F(b) = " + fdb + " | " +
+            switch (grau) {  //formula dinamica
+
+            case 1: //primeiro grau
+
+                fdxk = Math.round(((a * xk) + b) * 10000.0) / 10000.0;
+
+            break;
+
+            case 2: // segundo grau
+
+                fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * xk) + c ) * 10000.0) / 10000.0;
+
+            break;
+
+            case 3: // terceiro grau
+
+                fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + c * xk + d ) * 10000.0) / 10000.0;
+
+            break;
+
+            case 4: //quarto grau
+
+                fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + (c * Math.pow(xk,grau-2)) + xk * d + e ) * 10000.0) / 10000.0;
+
+            break;
+
+            case 5: // quinto grau
+
+                fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + (c * Math.pow(xk,grau-2)) + (d * Math.pow(xk,grau-3)) + xk * e + f) * 10000.0) / 10000.0;
+
+            break;
+
+            default:
+
+            }
+            System.out.println("A = " + pontoa + " | " + "B = " + pontob + " | " + "F(a) = " + fda + " | " + "F(b) = " + fdb + " | " +
                            "Xk = " + xk + " | " + "F(xk) = " + fdxk);
             
-            
-        }else{     
+        }else{
             
             pontoa = xk;
             pontob = pontob;
-            xk = (pontoa + pontob)/2;
+            xk = Math.round((pontoa + pontob)/2 * 10000.0) / 10000.0;
+            //xk = Math.round(((pontoa * fdb - pontob * fda)/fdb - fda) * 10000.0) / 10000.0;
             fda = fdxk;
-            fdxk = (float) ((a * Math.pow(xk,2)) + (b * xk) + c ) ;
             
-            
-            
-                 
+            switch (grau) {  //formula dinamica
+
+            case 1: //primeiro grau
+                
+                fdxk = Math.round(((a * xk) + b ) * 10000.0) / 10000.0;
+
+            break;
+
+            case 2: // segundo grau
+
+                fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * xk) + c ) * 10000.0) / 10000.0;
+
+            break;
+
+            case 3: // terceiro grau
+
+                fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + c * xk + d ) * 10000.0) / 10000.0;
+
+            break;
+
+            case 4: //quarto grau
+
+                fdxk = Math.round(((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + (c * Math.pow(xk,grau-2)) + xk * d + e )* 10000.0) / 10000.0;
+
+            break;
+
+            case 5: // quinto grau
+                
+                fdxk =  Math.round(((a * Math.pow(xk,grau)) + (b * Math.pow(xk,grau-1)) + (c * Math.pow(xk,grau-2)) + (d * Math.pow(xk,grau-3)) + xk * e + f) * 10000.0) / 10000.0;
+
+            break;
+
+            default:
+
+            }
+                             
         System.out.println(String.format("A = " + pontoa + " | " + "B = " + pontob + " | " + "F(a) = " + fda + " | " + "F(b) = " + fdb + " | " +
                            "Xk = " + xk + " | " + "F(xk) = " + fdxk));
-                    
+        
         }
        
-        }while(fdxk > 0.001 | fdxk < -0.001);
-                              
-    
+        }
     }
 }
+
+
+//Falta fazer: 1 - incluir outro método /
